@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevResurs - Dasturchilar platformasi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3a0ca3;
+            --accent-color: #4cc9f0;
+            --dark-color: #2b2d42;
+            --light-color: #f8f9fa;
+            --text-color: #333;
+            --text-light: #6c757d;
+            --border-color: #e9ecef;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+            --success-color: #4ade80;
+            --warning-color: #f59e0b;
+        }
+
+        .dark-mode {
+            --primary-color: #5a6ff0;
+            --secondary-color: #4a1fb8;
+            --dark-color: #121826;
+            --light-color: #1f2937;
+            --text-color: #f3f4f6;
+            --text-light: #9ca3af;
+            --border-color: #374151;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-color);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 6px 14px;
+            font-size: 0.9rem;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .dark-mode header {
+            background-color: var(--dark-color);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 30px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            padding-left: 45px;
+            border-radius: var(--radius);
+            border: 2px solid var(--border-color);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: white;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .dark-mode nav {
+            background-color: var(--dark-color);
+            border-color: var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 0;
+            gap: 5px;
+        }
+
+        .category-btn {
+            padding: 8px 18px;
+            background-color: transparent;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            color: var(--text-color);
+        }
+
+        .category-btn:hover {
+            background-color: var(--border-color);
+        }
+
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .lang-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .lang-btn:hover {
+            background-color: var(--border-color);
+        }
+
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            min-width: 150px;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .dark-mode .lang-dropdown {
+            background-color: var(--dark-color);
+        }
+
+        .lang-dropdown.show {
+            display: block;
+        }
+
+        .lang-option {
+            padding: 12px 15px;
+            display: block;
+            width: 100%;
+            text-align: left;
+            border: none;
+            background: none;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-color);
+        }
+
+        .lang-option:hover {
+            background-color: var(--border-color);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 40px 0;
+            min-height: 70vh;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .resource-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dark-mode .resource-card {
+            background-color: var(--dark-color);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .card-footer {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .card-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .card-link i {
+            font-size: 0.9rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Bot Section */
+        .bot-section {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            margin: 60px 0;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .dark-mode .bot-section {
+            background-color: var(--dark-color);
+        }
+
+        .bot-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .bot-section p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .bot-features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .bot-feature {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            padding: 25px 20px;
+            background-color: var(--light-color);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .dark-mode .bot-feature {
+            background-color: #2a3142;
+        }
+
+        .bot-feature:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .bot-feature i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .bot-feature h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .bot-feature p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-about h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-about p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-info i {
+            color: var(--accent-color);
+            width: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            opacity: 1;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+            position: relative;
+        }
+
+        .dark-mode .modal-content {
+            background-color: var(--dark-color);
+            color: var(--text-color);
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 25px 30px 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        .modal-body {
+            padding: 25px 30px;
+        }
+
+        .modal-description {
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .modal-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .detail-item h4 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--text-light);
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 992px) {
+            .resources-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-right .language-selector {
+                display: none;
+            }
+            
+            .search-container {
+                margin: 0 15px;
+            }
+            
+            .categories {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 15px;
+                box-shadow: var(--shadow);
+                z-index: 10;
+            }
+            
+            .dark-mode .categories {
+                background-color: var(--dark-color);
+            }
+            
+            .categories.show {
+                display: flex;
+            }
+            
+            .category-btn {
+                padding: 12px 20px;
+                border-radius: var(--radius);
+                text-align: left;
+            }
+            
+            .bot-features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .bot-feature {
+                max-width: 100%;
+            }
+            
+            .header-container {
+                flex-wrap: wrap;
+            }
+            
+            .search-container {
+                order: 3;
+                margin: 15px 0 0;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bot-section {
+                padding: 30px 20px;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-code"></i>
+                <span>DevResurs</span>
+            </a>
+            
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Resurslarni qidirish...">
+            </div>
+            
+            <div class="header-actions">
+                <button class="btn btn-small" id="adminBtn">
+                    <i class="fas fa-user-cog"></i> Admin
+                </button>
+                <button class="btn btn-small" id="botBtn">
+                    <i class="fab fa-telegram"></i> Bot
+                </button>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <button class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="categories" id="categories">
+                <button class="category-btn active" data-category="all">Barchasi</button>
+                <button class="category-btn" data-category="css">CSS saytlar</button>
+                <button class="category-btn" data-category="library">Kutubxonalar</button>
+                <button class="category-btn" data-category="framework">Frameworklar</button>
+                <button class="category-btn" data-category="tutorial">Tutoriallar</button>
+                <button class="category-btn" data-category="tool">Dasturiy vositalar</button>
+            </div>
+            
+            <div class="nav-right">
+                <div class="language-selector">
+                    <button class="lang-btn" id="langBtn">
+                        <i class="fas fa-globe"></i>
+                        <span>O'zbekcha</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <button class="lang-option" data-lang="uz">O'zbekcha</button>
+                        <button class="lang-option" data-lang="en">English</button>
+                        <button class="lang-option" data-lang="ru">Русский</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <h1>Dasturchilar uchun resurslar</h1>
+            <p>Veb-dasturlash, dasturlash tillari, kutubxonalar va frameworklar haqida foydali resurslar to'plami.</p>
+            
+            <div class="resources-grid" id="resourcesGrid">
+                <!-- Resources will be loaded here -->
+            </div>
+            
+            <div class="loading" id="loadingIndicator">
+                <div class="loading-spinner"></div>
+                <p>Resurslar yuklanmoqda...</p>
+            </div>
+        </div>
+        
+        <!-- Bot Section -->
+        <div class="container">
+            <div class="bot-section">
+                <h2>Telegram Bot Integratsiyasi</h2>
+                <p>Bizning Telegram botimiz orqali sayt resurslaridan to'liq foydalanishingiz, admin panelga kirishingiz va bildirishnomalar olishingiz mumkin.</p>
+                
+                <div class="bot-features">
+                    <div class="bot-feature">
+                        <i class="fas fa-search"></i>
+                        <h3>Qidiruv</h3>
+                        <p>Bot orqali saytdagi barcha resurslarni qidirish imkoniyati</p>
+                    </div>
+                    <div class="bot-feature">
+                        <i class="fas fa-user-shield"></i>
+                        <h3>Admin Panel</h3>
+                        <p>Bot orqali admin panelga kirish va resurslarni boshqarish</p>
+                    </div>
+                    <div class="bot-feature">
+                        <i class="fas fa-bell"></i>
+                        <h3>Bildirishnomalar</h3>
+                        <p>Yangi resurslar haqida va yangilanishlar haqida bildirishnomalar olish</p>
+                    </div>
+                </div>
+                
+                <a href="https://t.me/devresurs_bot" target="_blank" class="btn" id="telegramLink">
+                    <i class="fab fa-telegram"></i> Botga ulanish
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <h3>DevResurs</h3>
+                    <p>Dasturchilar va foydalanuvchilar uchun resurslar, kodlar, kutubxonalar va tutoriallar platformasi. Bizning maqsadimiz - dasturchilarga yordam berish.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Tezkor havolalar</h4>
+                    <ul>
+                        <li><a href="#">Bosh sahifa</a></li>
+                        <li><a href="#">CSS saytlar</a></li>
+                        <li><a href="#">Kutubxonalar</a></li>
+                        <li><a href="#">Frameworklar</a></li>
+                        <li><a href="#">Tutoriallar</a></li>
+                        <li><a href="#">Admin panel</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Aloqa</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@devresurs.uz</span>
+                        </li>
+                        <li>
+                            <i class="fab fa-telegram"></i>
+                            <span>@devresurs_support</span>
+                        </li>
+                        <li>
+                            <i class="fab fa-github"></i>
+                            <span>github.com/devresurs</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Toshkent, O'zbekistan</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 DevResurs. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="resourceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Resurs nomi</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description" id="modalDescription">Bu yerda resursning batafsil tavsifi ko'rsatiladi.</p>
+                
+                <div class="modal-details">
+                    <div class="detail-item">
+                        <h4>Kategoriya</h4>
+                        <span id="modalCategory">Kategoriya</span>
+                    </div>
+                    <div class="detail-item">
+                        <h4>Qanday yordam beradi</h4>
+                        <p id="modalHelp">Bu resurs sizga ... yordam beradi.</p>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <h4>Teglar</h4>
+                    <div class="modal-tags" id="modalTags">
+                        <!-- Tags will be inserted here -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="closeModalBtn">Yopish</button>
+                <a href="#" class="btn" id="modalLink" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Saytga o'tish
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for resources
+        const resources = [
+            {
+                id: 1,
+                name: "CSS Tricks",
+                category: "css",
+                description: "CSS bo'yicha foydali maqolalar, tutoriallar va misollar to'plami.",
+                detailedDescription: "CSS Tricks veb-dizayn va frontend dasturlash bo'yicha eng yaxshi manbalardan biridir. Saytda CSS, HTML, JavaScript bo'yicha dolzarb maqolalar, tutoriallar va misollar mavjud. Bu sayt har qanday darajadagi dasturchilar uchun foydali bo'ladi.",
+                help: "CSS bilan ishlashda yordam beradi, yangi texnikalarni o'rganishga yordam beradi.",
+                link: "https://css-tricks.com",
+                tags: ["CSS", "Dizayn", "Tutorial", "Frontend"]
+            },
+            {
+                id: 2,
+                name: "React",
+                category: "framework",
+                description: "Facebook tomonidan yaratilgan JavaScript kutubxonasi, UI yaratish uchun.",
+                detailedDescription: "React - bu foydalanuvchi interfeyslarini yaratish uchun JavaScript kutubxonasi. Komponent asosida ishlaydi va virtual DOMdan foydalanadi, bu esa ilovalarni tezroq ishlashini ta'minlaydi. React hozirda eng mashhur frontend frameworklaridan biridir.",
+                help: "Interaktiv veb-ilovalar yaratishda yordam beradi, komponent asosidagi dasturlashni o'rganishga yordam beradi.",
+                link: "https://reactjs.org",
+                tags: ["JavaScript", "Framework", "Frontend", "UI"]
+            },
+            {
+                id: 3,
+                name: "Vue.js",
+                category: "framework",
+                description: "Progressiv JavaScript frameworki, UI yaratish uchun.",
+                detailedDescription: "Vue.js - bu foydalanuvchi interfeyslarini yaratish uchun progressiv JavaScript frameworki. Vue.js o'rganish oson va kichik yoki katta loyihalar uchun mos keladi. U muvozanatli va kuchli ekotizimga ega.",
+                help: "Veb-ilovalarni tezda yaratishda yordam beradi, oddiy sintaksis va kuchli funksionallik.",
+                link: "https://vuejs.org",
+                tags: ["JavaScript", "Framework", "Frontend", "Progressiv"]
+            },
+            {
+                id: 4,
+                name: "MDN Web Docs",
+                category: "tutorial",
+                description: "Veb-texnologiyalar bo'yicha to'liq va ishonchli hujjatlar to'plami.",
+                detailedDescription: "MDN Web Docs veb-standartlari, HTML, CSS, JavaScript va boshqa veb-texnologiyalar bo'yicha eng ishonchli manbadir. Unda har bir xususiyat haqida batafsil hujjatlar, misollar va qo'llanmalar mavjud.",
+                help: "Veb-texnologiyalarni chuqur o'rganishda yordam beradi, har qanday savolga javob topish mumkin.",
+                link: "https://developer.mozilla.org",
+                tags: ["Hujjatlar", "Tutorial", "HTML", "CSS", "JavaScript"]
+            },
+            {
+                id: 5,
+                name: "Tailwind CSS",
+                category: "css",
+                description: "Utility-first CSS frameworki tez va moslashuvchan dizaynlar yaratish uchun.",
+                detailedDescription: "Tailwind CSS - bu utility-first CSS frameworki bo'lib, u tez va moslashuvchan veb-dizaynlar yaratish imkonini beradi. U oldindan belgilangan klasslar yordamida ishlaydi, bu esa CSS yozish vaqti va hajmini kamaytiradi.",
+                help: "Tez va moslashuvchan veb-dizaynlar yaratishda yordam beradi, kodni qayta ishlatish imkonini beradi.",
+                link: "https://tailwindcss.com",
+                tags: ["CSS", "Framework", "Utility", "Dizayn"]
+            },
+            {
+                id: 6,
+                name: "Node.js",
+                category: "tool",
+                description: "JavaScript runtime muhiti server tomonida dasturlash uchun.",
+                detailedDescription: "Node.js - bu server tomonida JavaScript kodini ishga tushirish uchun ochiq manbali, platformadan mustaqil JavaScript runtime muhiti. U V8 JavaScript dvigateliga asoslangan va asinxron, hodisaga asoslangan arxitekturaga ega.",
+                help: "Server tomonidagi dasturlarni JavaScript bilan yozishda yordam beradi, real-time ilovalar yaratish imkonini beradi.",
+                link: "https://nodejs.org",
+                tags: ["JavaScript", "Runtime", "Server", "Backend"]
+            },
+            {
+                id: 7,
+                name: "GitHub",
+                category: "tool",
+                description: "Kod hosting platformasi, versiya nazorati va hamkorlik uchun.",
+                detailedDescription: "GitHub - bu dasturchilar uchun kod hosting platformasi bo'lib, Git versiya nazorati tizimidan foydalanadi. U loyihalarni boshqarish, hamkorlik qilish va kodni saqlash imkonini beradi. GitHub dunyodagi eng katta dasturchilar hamjamiyatiga ega.",
+                help: "Kodni boshqarish, hamkorlikda ishlash va ochiq manbali loyihalarga hissa qo'shishda yordam beradi.",
+                link: "https://github.com",
+                tags: ["Git", "Kod hosting", "Versiya nazorati", "Hamkorlik"]
+            },
+            {
+                id: 8,
+                name: "FreeCodeCamp",
+                category: "tutorial",
+                description: "Bepul dasturlash kurslari va loyihalar to'plami.",
+                detailedDescription: "FreeCodeCamp - bu bepul onlayn dasturlash platformasi bo'lib, u dasturlashni o'rganishga qiziqqan odamlar uchun turli kurslar, loyihalar va sertifikatlar taklif etadi. Platformada HTML, CSS, JavaScript, React, Node.js va boshqa ko'plab texnologiyalar bo'yicha materiallar mavjud.",
+                help: "Dasturlashni noldan o'rganishda yordam beradi, amaliy loyihalar orqali bilimlarni mustahkamlaydi.",
+                link: "https://freecodecamp.org",
+                tags: ["Kurslar", "Tutorial", "Bepul", "Sertifikat"]
+            }
+        ];
+
+        // DOM Elements
+        const resourcesGrid = document.getElementById('resourcesGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const themeToggle = document.getElementById('themeToggle');
+        const hamburger = document.getElementById('hamburger');
+        const categories = document.getElementById('categories');
+        const langBtn = document.getElementById('langBtn');
+        const langDropdown = document.getElementById('langDropdown');
+        const langOptions = document.querySelectorAll('.lang-option');
+        const adminBtn = document.getElementById('adminBtn');
+        const botBtn = document.getElementById('botBtn');
+        const telegramLink = document.getElementById('telegramLink');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const resourceModal = document.getElementById('resourceModal');
+        const closeModal = document.getElementById('closeModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalHelp = document.getElementById('modalHelp');
+        const modalTags = document.getElementById('modalTags');
+        const modalLink = document.getElementById('modalLink');
+
+        // State variables
+        let currentCategory = 'all';
+        let currentSearch = '';
+        let darkMode = localStorage.getItem('darkMode') === 'enabled';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set initial theme
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            // Load resources
+            renderResources(resources);
+            
+            // Hide loading indicator
+            loadingIndicator.style.display = 'none';
+        });
+
+        // Render resources to the grid
+        function renderResources(resourcesToRender) {
+            resourcesGrid.innerHTML = '';
+            
+            if (resourcesToRender.length === 0) {
+                resourcesGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <h3>Hech qanday resurs topilmadi</h3>
+                        <p>Qidiruv so'rovingizga mos keladigan resurslar mavjud emas.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            resourcesToRender.forEach(resource => {
+                const card = document.createElement('div');
+                card.className = 'resource-card';
+                card.dataset.id = resource.id;
+                card.dataset.category = resource.category;
+                
+                // Category translation
+                const categoryNames = {
+                    'css': 'CSS saytlar',
+                    'library': 'Kutubxonalar',
+                    'framework': 'Frameworklar',
+                    'tutorial': 'Tutoriallar',
+                    'tool': 'Dasturiy vositalar'
+                };
+                
+                const categoryName = categoryNames[resource.category] || resource.category;
+                
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-category">${categoryName}</span>
+                        <h3 class="card-title">${resource.name}</h3>
+                        <p class="card-description">${resource.description}</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            ${resource.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${resource.link}" class="card-link" target="_blank">
+                            <i class="fas fa-external-link-alt"></i> Saytga o'tish
+                        </a>
+                        <button class="btn btn-small btn-secondary details-btn" data-id="${resource.id}">
+                            Batafsil
+                        </button>
+                    </div>
+                `;
+                
+                resourcesGrid.appendChild(card);
+            });
+            
+            // Add event listeners to detail buttons
+            document.querySelectorAll('.details-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.dataset.id);
+                    openResourceModal(id);
+                });
+            });
+            
+            // Add event listeners to cards
+            document.querySelectorAll('.resource-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = parseInt(card.dataset.id);
+                    openResourceModal(id);
+                });
+            });
+        }
+
+        // Filter resources based on category and search
+        function filterResources() {
+            let filtered = resources;
+            
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(resource => resource.category === currentCategory);
+            }
+            
+            // Filter by search
+            if (currentSearch.trim() !== '') {
+                const searchTerm = currentSearch.toLowerCase().trim();
+                filtered = filtered.filter(resource => 
+                    resource.name.toLowerCase().includes(searchTerm) ||
+                    resource.description.toLowerCase().includes(searchTerm) ||
+                    resource.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            return filtered;
+        }
+
+        // Open resource modal
+        function openResourceModal(id) {
+            const resource = resources.find(r => r.id === id);
+            if (!resource) return;
+            
+            // Category translation
+            const categoryNames = {
+                'css': 'CSS saytlar',
+                'library': 'Kutubxonalar',
+                'framework': 'Frameworklar',
+                'tutorial': 'Tutoriallar',
+                'tool': 'Dasturiy vositalar'
+            };
+            
+            const categoryName = categoryNames[resource.category] || resource.category;
+            
+            // Set modal content
+            modalTitle.textContent = resource.name;
+            modalDescription.textContent = resource.detailedDescription;
+            modalCategory.textContent = categoryName;
+            modalHelp.textContent = resource.help;
+            modalLink.href = resource.link;
+            
+            // Set tags
+            modalTags.innerHTML = '';
+            resource.tags.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = 'tag';
+                tagElement.textContent = tag;
+                modalTags.appendChild(tagElement);
+            });
+            
+            // Show modal
+            resourceModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close resource modal
+        function closeResourceModal() {
+            resourceModal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event Listeners
+        // Search input
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            const filteredResources = filterResources();
+            renderResources(filteredResources);
+        });
+
+        // Category buttons
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                categoryButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update category
+                currentCategory = btn.dataset.category;
+                
+                // Filter and render
+                const filteredResources = filterResources();
+                renderResources(filteredResources);
+                
+                // Close mobile menu if open
+                if (categories.classList.contains('show')) {
+                    categories.classList.remove('show');
+                }
+            });
+        });
+
+        // Theme toggle
+        themeToggle.addEventListener('click', () => {
+            darkMode = !darkMode;
+            
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Hamburger menu
+        hamburger.addEventListener('click', () => {
+            categories.classList.toggle('show');
+        });
+
+        // Language selector
+        langBtn.addEventListener('click', () => {
+            langDropdown.classList.toggle('show');
+        });
+
+        // Language options
+        langOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const lang = option.dataset.lang;
+                
+                // Update button text
+                const langTexts = {
+                    'uz': 'O\'zbekcha',
+                    'en': 'English',
+                    'ru': 'Русский'
+                };
+                
+                langBtn.querySelector('span').textContent = langTexts[lang];
+                
+                // Close dropdown
+                langDropdown.classList.remove('show');
+                
+                // Show alert (in real app, this would change the language)
+                alert(`Til ${langTexts[lang]}ga o'zgartirildi. Haqiqiy ilovada bu barcha matnlarni tarjima qiladi.`);
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!langBtn.contains(e.target) && !langDropdown.contains(e.target)) {
+                langDropdown.classList.remove('show');
+            }
+            
+            if (!hamburger.contains(e.target) && !categories.contains(e.target)) {
+                categories.classList.remove('show');
+            }
+        });
+
+        // Admin button
+        adminBtn.addEventListener('click', () => {
+            alert('Admin panelga kirish: https://t.me/devresurs_bot orqali admin panelga kirishingiz mumkin. Haqiqiy ilovada bu Telegram bot orqali autentifikatsiya qilinadi.');
+        });
+
+        // Bot button
+        botBtn.addEventListener('click', () => {
+            alert('Telegram botimizga ulaning: @devresurs_bot. Bot orqali resurslarni qidirish, admin panelga kirish va yangi resurslar qo\'shishingiz mumkin.');
+        });
+
+        // Telegram link
+        telegramLink.addEventListener('click', (e) => {
+            // In a real app, this would open Telegram
+            // For demo, we'll show an alert
+            if (!e.ctrlKey && !e.metaKey) {
+                e.preventDefault();
+                alert('Haqiqiy ilovada bu sizni Telegram botga olib boradi. Demo rejimda faqat alert ko\'rsatilmoqda.');
+            }
+        });
+
+        // Modal close buttons
+        closeModal.addEventListener('click', closeResourceModal);
+        closeModalBtn.addEventListener('click', closeResourceModal);
+
+        // Close modal when clicking outside
+        resourceModal.addEventListener('click', (e) => {
+            if (e.target === resourceModal) {
+                closeResourceModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && resourceModal.classList.contains('show')) {
+                closeResourceModal();
+            }
+        });
+
+        // Simulate loading for demonstration
+        setTimeout(() => {
+            loadingIndicator.style.display = 'none';
+        }, 1500);
+    </script>
+</body>
+</html>
